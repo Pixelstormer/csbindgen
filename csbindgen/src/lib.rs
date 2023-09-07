@@ -14,7 +14,7 @@ use emitter::*;
 use field_map::FieldMap;
 use parser::*;
 use std::{collections::HashSet, error::Error};
-use type_meta::{ExternMethod, RustEnum, RustStruct, RustType, RustConst};
+use type_meta::{ExternMethod, RustConst, RustEnum, RustStruct, RustType};
 
 enum GenerateKind {
     InputBindgen,

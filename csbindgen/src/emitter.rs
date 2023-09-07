@@ -126,10 +126,8 @@ pub fn emit_csharp(
                 method_name,
                 &"return".to_string(),
             ) {
-                method_list_string.push_str(
-                    format!("        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]\n")
-                        .as_str(),
-                );
+                method_list_string
+                    .push_str("        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]\n");
                 method_list_string
                     .push_str(format!("        public {delegate_method};\n\n").as_str());
             }
@@ -143,10 +141,8 @@ pub fn emit_csharp(
                 method_name,
                 &p.name,
             ) {
-                method_list_string.push_str(
-                    format!("        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]\n")
-                        .as_str(),
-                );
+                method_list_string
+                    .push_str("        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]\n");
                 method_list_string
                     .push_str(format!("        public {delegate_method};\n\n").as_str());
             }
@@ -302,26 +298,26 @@ pub fn emit_csharp(
         );
 
         // special case for string, char, ByteStr
-        if item.value.starts_with("\"") {
+        if item.value.starts_with('\"') {
             type_name = "string".to_string();
-        } else if item.value.starts_with("\'") {
+        } else if item.value.starts_with('\'') {
             type_name = "char".to_string();
         }
 
-        if item.value.starts_with("[") {
+        if item.value.starts_with('[') {
             const_string.push_str(
                 format!(
                     "        {} static ReadOnlySpan<byte> {} => new byte[] {};\n",
                     accessibility,
                     escape_name(item.const_name.as_str()),
-                    item.value.replace("[", "{ ").replace("]", " }")
+                    item.value.replace('[', "{ ").replace(']', " }")
                 )
                 .as_str(),
             );
         } else {
             let value = if type_name == "float" {
                 format!("{}f", item.value)
-            }else {
+            } else {
                 item.value.to_string()
             };
 

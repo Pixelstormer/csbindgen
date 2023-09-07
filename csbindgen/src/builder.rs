@@ -67,7 +67,9 @@ impl Builder {
 
     /// Add an input .rs file(such as generated from bindgen) to generate binding.
     pub fn input_bindgen_file<T: AsRef<Path>>(mut self, input_bindgen_file: T) -> Builder {
-        self.options.input_bindgen_files.push(input_bindgen_file.as_ref().to_path_buf());
+        self.options
+            .input_bindgen_files
+            .push(input_bindgen_file.as_ref().to_path_buf());
         self
     }
 

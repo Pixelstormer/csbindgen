@@ -51,9 +51,9 @@ impl ExternMethod {
             let ss = x
                 .trim_matches(&['=', ' ', '\"'] as &[_])
                 .replace("\\n", "")
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;");
+                .replace('&', "&amp;")
+                .replace('<', "&lt;")
+                .replace('>', "&gt;");
             s.push_str(ss.as_str());
         }
 
@@ -127,10 +127,7 @@ impl RustType {
             };
 
             // return NonNull or Box requires close angle
-            match p {
-                NonNull | Box => true,
-                _ => false,
-            }
+            matches!(p, NonNull | Box)
         }
 
         let emit_type_name = |sb: &mut String| {
@@ -264,7 +261,7 @@ impl RustType {
                 "NonZeroU32" => "uint",
                 "NonZeroU64" => "ulong",
                 "NonZeroU128" => "UInt128",
-                "NonZeroUsize" => "nuint",                
+                "NonZeroUsize" => "nuint",
                 _ => {
                     temp_string = escape_name(type_name);
                     temp_string.as_str()
@@ -377,7 +374,7 @@ impl RustType {
                     if let TypeKind::Pointer(p, inner) = &rust_type.type_kind {
                         if emit_inner {
                             sb.push_str(
-                                &inner
+                                inner
                                     .to_csharp_string(
                                         options,
                                         alias_map,
@@ -424,17 +421,16 @@ impl RustType {
 
                 if !emit_pointer(
                     &mut sb,
-                    &self,
+                    self,
                     options,
                     alias_map,
                     emit_from_struct,
                     method_name,
                     parameter_name,
                     emit_inner,
-                ) {
-                    if emit_inner {
-                        sb.push_str(type_csharp_string.as_str());
-                    }
+                ) && emit_inner
+                {
+                    sb.push_str(type_csharp_string.as_str());
                 }
             }
         };
@@ -454,9 +450,7 @@ pub fn build_method_delegate_if_required(
 
     match &me.type_kind {
         TypeKind::Function(parameters, return_type) => {
-            if emit_from_struct && !options.csharp_use_function_pointer {
-                None
-            } else if options.csharp_use_function_pointer {
+            if !(emit_from_struct || options.csharp_use_function_pointer) {
                 None
             } else {
                 let return_type_name = match return_type {
@@ -481,7 +475,7 @@ pub fn build_method_delegate_if_required(
                             method_name,
                             parameter_name,
                         );
-                        let parameter_name = if p.name == "" {
+                        let parameter_name = if p.name.is_empty() {
                             format!("arg{}", index + 1)
                         } else {
                             p.name.clone()
