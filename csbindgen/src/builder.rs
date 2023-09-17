@@ -89,35 +89,35 @@ impl Builder {
         self
     }
 
-    /// add original extern call type prefix to rust wrapper,
+    /// Add original extern call type prefix to rust wrapper,
     /// `return {rust_method_type_path}::foo()`
     pub fn rust_method_type_path<T: Into<String>>(mut self, rust_method_type_path: T) -> Self {
         self.options.rust_method_type_path = rust_method_type_path.into();
         self
     }
 
-    /// add method prefix to rust wrapper, default is `csbindgen_`
+    /// Add method prefix to rust wrapper, default is `csbindgen_`
     /// `pub extern "C" fn {rust_method_prefix}foo()`
     pub fn rust_method_prefix<T: Into<String>>(mut self, rust_method_prefix: T) -> Self {
         self.options.rust_method_prefix = rust_method_prefix.into();
         self
     }
 
-    /// add file header string to rust wrapper,
+    /// Add file header string to rust wrapper,
     /// `mod lz4;`, `use super::lz4;`
     pub fn rust_file_header<T: Into<String>>(mut self, rust_file_header: T) -> Self {
         self.options.rust_file_header = rust_file_header.into();
         self
     }
 
-    /// configure C# file namespace(default is `CsBindgen`),
+    /// Configure C# file namespace(default is `CsBindgen`),
     /// "namespace {csharp_namespace}"
     pub fn csharp_namespace<T: Into<String>>(mut self, csharp_namespace: T) -> Self {
         self.options.csharp_namespace = csharp_namespace.into();
         self
     }
 
-    /// configure C# extra import namespace,
+    /// Configure C# extra import namespace,
     /// "using {csharp_namespace};"
     pub fn csharp_import_namespace<T: Into<String>>(mut self, csharp_namespace: T) -> Self {
         self.options
@@ -126,27 +126,27 @@ impl Builder {
         self
     }
 
-    /// configure C# class name(default is `NativeMethods`),
+    /// Configure C# class name(default is `NativeMethods`),
     /// `public static unsafe partial class {csharp_class_name}`
     pub fn csharp_class_name<T: Into<String>>(mut self, csharp_class_name: T) -> Self {
         self.options.csharp_class_name = csharp_class_name.into();
         self
     }
 
-    /// configure C# load dll name,
+    /// Configure C# load dll name,
     /// `[DllImport({csharp_dll_name})]`
     pub fn csharp_dll_name<T: Into<String>>(mut self, csharp_dll_name: T) -> Self {
         self.options.csharp_dll_name = csharp_dll_name.into();
         self
     }
 
-    /// configure don't emit __DllName
+    /// Configure don't emit __DllName
     pub fn csharp_disable_emit_dll_name(mut self, csharp_disable_emit_dll_name: bool) -> Self {
         self.options.csharp_disable_emit_dll_name = csharp_disable_emit_dll_name;
         self
     }
 
-    /// configure C# DllImport EntryPoint prefix,
+    /// Configure C# DllImport EntryPoint prefix,
     /// `[DllImport(, EntryPoint ="{csharp_entry_point_prefix}foo")]`
     pub fn csharp_entry_point_prefix<T: Into<String>>(
         mut self,
@@ -156,14 +156,14 @@ impl Builder {
         self
     }
 
-    /// configure C# calling method name prefix,
+    /// Configure C# calling method name prefix,
     /// `public static extern void {csharp_method_prefix}foo()`
     pub fn csharp_method_prefix<T: Into<String>>(mut self, csharp_method_prefix: T) -> Self {
         self.options.csharp_method_prefix = csharp_method_prefix.into();
         self
     }
 
-    /// configure C# class accessibility, default is internal
+    /// Configure C# class accessibility, default is internal
     /// `{csharp_class_accessibility} static unsafe partial class NativeMethods`
     pub fn csharp_class_accessibility<T: Into<String>>(
         mut self,
@@ -173,7 +173,7 @@ impl Builder {
         self
     }
 
-    /// configure add C# dll name if directive,
+    /// Configure add C# dll name if directive,
     /// #if {if_symbol} __DllName = {if_dll_name}
     pub fn csharp_dll_name_if<T: Into<String>>(mut self, if_symbol: T, if_dll_name: T) -> Self {
         self.options.csharp_if_symbol = if_symbol.into();
@@ -181,18 +181,19 @@ impl Builder {
         self
     }
 
-    /// conifure C# generate function pointer as delegate* or Func/Action, default is true(generate delegate*)
+    /// Configure C# generate function pointer as delegate* or Func/Action, default is true(generate delegate*)
     pub fn csharp_use_function_pointer(mut self, csharp_use_function_pointer: bool) -> Self {
         self.options.csharp_use_function_pointer = csharp_use_function_pointer;
         self
     }
 
+    /// Configure using Monomod's DynDllImport over regular DllImport or not
     pub fn csharp_use_monomod_dyndll(mut self, csharp_use_monomod_dyndll: bool) -> Self {
         self.options.csharp_use_monomod_dyndll = csharp_use_monomod_dyndll;
         self
     }
 
-    /// conifure C# generate const, default is false
+    /// Configure C# generate const, default is false
     pub fn csharp_generate_const(mut self, csharp_generate_const: bool) -> Self {
         self.options.csharp_generate_const = csharp_generate_const;
         self
