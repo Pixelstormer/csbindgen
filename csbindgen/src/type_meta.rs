@@ -503,7 +503,7 @@ pub fn build_method_delegate_if_required(
     }
 }
 
-pub fn build_method_delegate_name(method_name: &String, parameter_name: &String) -> String {
+pub fn build_method_delegate_name(method_name: &str, parameter_name: &str) -> String {
     format!("{method_name}_{parameter_name}_delegate")
 }
 
