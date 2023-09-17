@@ -203,11 +203,6 @@ pub fn emit_csharp(
             .collect::<Vec<_>>()
             .join(", ");
 
-        if let Some(x) = item.escape_doc_comment() {
-            method_list_string
-                .push_str_ln(format!("        /// <summary>{}</summary>", x).as_str());
-        }
-
         if options.csharp_use_monomod_dyndll {
             method_list_string
                 .push_str_ln("        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
@@ -221,6 +216,11 @@ pub fn emit_csharp(
                 "        public delegate {return_type} {delegate_name}({parameters});"
             ));
 
+            if let Some(x) = item.escape_doc_comment() {
+                method_list_string
+                    .push_str_ln(format!("        /// <summary>{}</summary>", x).as_str());
+            }
+
             method_list_string.push_str_ln(&format!(
                 r#"        [DynDllImport(__DllName, "{entry_point}")]"#
             ));
@@ -228,6 +228,11 @@ pub fn emit_csharp(
                 "        public static readonly {delegate_name} {method_prefix}{method_name};"
             ));
         } else {
+            if let Some(x) = item.escape_doc_comment() {
+                method_list_string
+                    .push_str_ln(format!("        /// <summary>{}</summary>", x).as_str());
+            }
+
             method_list_string.push_str_ln(
                 &format!("        [DllImport(__DllName, EntryPoint = \"{entry_point}\", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]")
             );
