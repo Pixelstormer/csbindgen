@@ -68,7 +68,7 @@ impl Builder {
     }
 
     /// Add an input .rs file(such as generated from bindgen) to generate binding.
-    pub fn input_bindgen_file<T: AsRef<Path>>(mut self, input_bindgen_file: T) -> Builder {
+    pub fn input_bindgen_file<T: AsRef<Path>>(mut self, input_bindgen_file: T) -> Self {
         self.options
             .input_bindgen_files
             .push(input_bindgen_file.as_ref().to_path_buf());
@@ -76,7 +76,7 @@ impl Builder {
     }
 
     /// Add an input .rs file for collect extern methods to C# binding.
-    pub fn input_extern_file<T: AsRef<Path>>(mut self, input_extern_file: T) -> Builder {
+    pub fn input_extern_file<T: AsRef<Path>>(mut self, input_extern_file: T) -> Self {
         self.options
             .input_extern_files
             .push(input_extern_file.as_ref().to_path_buf());
@@ -84,42 +84,42 @@ impl Builder {
     }
 
     /// Filter generate method callback, default is `!x.starts_with('_')`
-    pub fn method_filter(mut self, method_filter: fn(method_name: String) -> bool) -> Builder {
+    pub fn method_filter(mut self, method_filter: fn(method_name: String) -> bool) -> Self {
         self.options.method_filter = method_filter;
         self
     }
 
     /// add original extern call type prefix to rust wrapper,
     /// `return {rust_method_type_path}::foo()`
-    pub fn rust_method_type_path<T: Into<String>>(mut self, rust_method_type_path: T) -> Builder {
+    pub fn rust_method_type_path<T: Into<String>>(mut self, rust_method_type_path: T) -> Self {
         self.options.rust_method_type_path = rust_method_type_path.into();
         self
     }
 
     /// add method prefix to rust wrapper, default is `csbindgen_`
     /// `pub extern "C" fn {rust_method_prefix}foo()`
-    pub fn rust_method_prefix<T: Into<String>>(mut self, rust_method_prefix: T) -> Builder {
+    pub fn rust_method_prefix<T: Into<String>>(mut self, rust_method_prefix: T) -> Self {
         self.options.rust_method_prefix = rust_method_prefix.into();
         self
     }
 
     /// add file header string to rust wrapper,
     /// `mod lz4;`, `use super::lz4;`
-    pub fn rust_file_header<T: Into<String>>(mut self, rust_file_header: T) -> Builder {
+    pub fn rust_file_header<T: Into<String>>(mut self, rust_file_header: T) -> Self {
         self.options.rust_file_header = rust_file_header.into();
         self
     }
 
     /// configure C# file namespace(default is `CsBindgen`),
     /// "namespace {csharp_namespace}"
-    pub fn csharp_namespace<T: Into<String>>(mut self, csharp_namespace: T) -> Builder {
+    pub fn csharp_namespace<T: Into<String>>(mut self, csharp_namespace: T) -> Self {
         self.options.csharp_namespace = csharp_namespace.into();
         self
     }
 
     /// configure C# extra import namespace,
     /// "using {csharp_namespace};"
-    pub fn csharp_import_namespace<T: Into<String>>(mut self, csharp_namespace: T) -> Builder {
+    pub fn csharp_import_namespace<T: Into<String>>(mut self, csharp_namespace: T) -> Self {
         self.options
             .csharp_imported_namespaces
             .push(csharp_namespace.into());
@@ -128,20 +128,20 @@ impl Builder {
 
     /// configure C# class name(default is `NativeMethods`),
     /// `public static unsafe partial class {csharp_class_name}`
-    pub fn csharp_class_name<T: Into<String>>(mut self, csharp_class_name: T) -> Builder {
+    pub fn csharp_class_name<T: Into<String>>(mut self, csharp_class_name: T) -> Self {
         self.options.csharp_class_name = csharp_class_name.into();
         self
     }
 
     /// configure C# load dll name,
     /// `[DllImport({csharp_dll_name})]`
-    pub fn csharp_dll_name<T: Into<String>>(mut self, csharp_dll_name: T) -> Builder {
+    pub fn csharp_dll_name<T: Into<String>>(mut self, csharp_dll_name: T) -> Self {
         self.options.csharp_dll_name = csharp_dll_name.into();
         self
     }
 
     /// configure don't emit __DllName
-    pub fn csharp_disable_emit_dll_name(mut self, csharp_disable_emit_dll_name: bool) -> Builder {
+    pub fn csharp_disable_emit_dll_name(mut self, csharp_disable_emit_dll_name: bool) -> Self {
         self.options.csharp_disable_emit_dll_name = csharp_disable_emit_dll_name;
         self
     }
@@ -151,14 +151,14 @@ impl Builder {
     pub fn csharp_entry_point_prefix<T: Into<String>>(
         mut self,
         csharp_entry_point_prefix: T,
-    ) -> Builder {
+    ) -> Self {
         self.options.csharp_entry_point_prefix = csharp_entry_point_prefix.into();
         self
     }
 
     /// configure C# calling method name prefix,
     /// `public static extern void {csharp_method_prefix}foo()`
-    pub fn csharp_method_prefix<T: Into<String>>(mut self, csharp_method_prefix: T) -> Builder {
+    pub fn csharp_method_prefix<T: Into<String>>(mut self, csharp_method_prefix: T) -> Self {
         self.options.csharp_method_prefix = csharp_method_prefix.into();
         self
     }
@@ -168,21 +168,21 @@ impl Builder {
     pub fn csharp_class_accessibility<T: Into<String>>(
         mut self,
         csharp_class_accessibility: T,
-    ) -> Builder {
+    ) -> Self {
         self.options.csharp_class_accessibility = csharp_class_accessibility.into();
         self
     }
 
     /// configure add C# dll name if directive,
     /// #if {if_symbol} __DllName = {if_dll_name}
-    pub fn csharp_dll_name_if<T: Into<String>>(mut self, if_symbol: T, if_dll_name: T) -> Builder {
+    pub fn csharp_dll_name_if<T: Into<String>>(mut self, if_symbol: T, if_dll_name: T) -> Self {
         self.options.csharp_if_symbol = if_symbol.into();
         self.options.csharp_if_dll_name = if_dll_name.into();
         self
     }
 
     /// conifure C# generate function pointer as delegate* or Func/Action, default is true(generate delegate*)
-    pub fn csharp_use_function_pointer(mut self, csharp_use_function_pointer: bool) -> Builder {
+    pub fn csharp_use_function_pointer(mut self, csharp_use_function_pointer: bool) -> Self {
         self.options.csharp_use_function_pointer = csharp_use_function_pointer;
         self
     }
@@ -193,7 +193,7 @@ impl Builder {
     }
 
     /// conifure C# generate const, default is false
-    pub fn csharp_generate_const(mut self, csharp_generate_const: bool) -> Builder {
+    pub fn csharp_generate_const(mut self, csharp_generate_const: bool) -> Self {
         self.options.csharp_generate_const = csharp_generate_const;
         self
     }
