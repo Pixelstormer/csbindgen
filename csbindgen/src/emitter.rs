@@ -222,7 +222,7 @@ pub fn emit_csharp(
             ));
 
             method_list_string
-                .push_str_ln(&format!("        [DynDllImport(__DllName, {entry_point}]"));
+                .push_str_ln(&format!("        [DynDllImport(__DllName, {entry_point})]"));
             method_list_string.push_str_ln(&format!(
                 "        public static readonly {delegate_name} {method_prefix}{method_name};"
             ));
