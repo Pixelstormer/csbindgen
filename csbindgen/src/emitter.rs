@@ -221,8 +221,9 @@ pub fn emit_csharp(
                 "        public delegate {return_type} {delegate_name}({parameters});"
             ));
 
-            method_list_string
-                .push_str_ln(&format!("        [DynDllImport(__DllName, {entry_point})]"));
+            method_list_string.push_str_ln(&format!(
+                r#"        [DynDllImport(__DllName, "{entry_point}")]"#
+            ));
             method_list_string.push_str_ln(&format!(
                 "        public static readonly {delegate_name} {method_prefix}{method_name};"
             ));
