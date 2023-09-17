@@ -466,8 +466,7 @@ pub fn build_method_delegate_if_required(
 
                 let joined_param = parameters
                     .iter()
-                    .enumerate()
-                    .map(|(index, p)| {
+                    .map(|p| {
                         let cs = p.rust_type.to_csharp_string(
                             options,
                             alias_map,
@@ -475,13 +474,7 @@ pub fn build_method_delegate_if_required(
                             method_name,
                             parameter_name,
                         );
-                        let parameter_name = if p.name.is_empty() {
-                            format!("arg{}", index + 1)
-                        } else {
-                            p.name.clone()
-                        };
-
-                        format!("{} {}", cs, escape_name(parameter_name.as_str()))
+                        format!("{} {}", cs, escape_name(&p.name))
                     })
                     .collect::<Vec<_>>()
                     .join(", ");

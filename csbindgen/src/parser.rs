@@ -78,13 +78,13 @@ fn parse_method(item: FnItem, options: &BindgenOptions) -> Option<ExternMethod> 
     let mut return_type: Option<RustType> = None;
 
     // argument
-    for arg in sig.inputs.iter() {
+    for (i, arg) in sig.inputs.iter().enumerate() {
         if let syn::FnArg::Typed(t) = arg {
-            let mut parameter_name: String = "".to_string();
-
-            if let Pat::Ident(ident) = &*t.pat {
-                parameter_name = ident.ident.to_string();
-            }
+            let parameter_name = if let Pat::Ident(ident) = &*t.pat {
+                ident.ident.to_string()
+            } else {
+                format!("arg{}", i + 1)
+            };
 
             let rust_type = parse_type(&t.ty);
             if rust_type.type_name.is_empty() {
@@ -470,13 +470,13 @@ fn parse_type(t: &syn::Type) -> RustType {
         syn::Type::BareFn(t) => {
             let mut parameters = Vec::new();
 
-            for arg in t.inputs.iter() {
+            for (i, arg) in t.inputs.iter().enumerate() {
                 let rust_type = parse_type(&arg.ty);
 
                 let name = if let Some((ident, _)) = &arg.name {
                     ident.to_string()
                 } else {
-                    "".to_string()
+                    format!("arg{}", i + 1)
                 };
                 parameters.push(Parameter { name, rust_type });
             }
