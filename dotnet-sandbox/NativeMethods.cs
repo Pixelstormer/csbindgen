@@ -46,8 +46,14 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "@event", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void @event(@event @event);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void test_func_issue_39__f_delegate(int arg1);
+
         [DllImport(__DllName, EntryPoint = "test_func_issue_39", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void test_func_issue_39(delegate* unmanaged[Cdecl]<int, void> _f);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void test_func_issue_39_variation1__f_delegate(int arg1, int arg2, int arg3);
 
         [DllImport(__DllName, EntryPoint = "test_func_issue_39_variation1", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void test_func_issue_39_variation1(delegate* unmanaged[Cdecl]<int, int, int, void> _f);
@@ -61,8 +67,14 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "nonzero_test", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void nonzero_test(sbyte _a, byte _b, uint _c);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void ge__f_delegate(int arg1, int arg2, int arg3);
+
         [DllImport(__DllName, EntryPoint = "ge", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void ge(delegate* unmanaged[Cdecl]<int, int, int, void> _f);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int nest_test__f_delegate(delegate* unmanaged[Cdecl]<int, void>* pxFunc);
 
         [DllImport(__DllName, EntryPoint = "nest_test", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void nest_test(delegate* unmanaged[Cdecl]<delegate* unmanaged[Cdecl]<int, void>*, int> _f);
@@ -85,11 +97,20 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "csharp_to_rust_bytes", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void csharp_to_rust_bytes(byte* bytes, int len);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int callback_test_cb_delegate(int a);
+
         [DllImport(__DllName, EntryPoint = "callback_test", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int callback_test(delegate* unmanaged[Cdecl]<int, int> cb);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int csharp_to_rust_cb_delegate(int x, int y);
+
         [DllImport(__DllName, EntryPoint = "csharp_to_rust", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void csharp_to_rust(delegate* unmanaged[Cdecl]<int, int, int> cb);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int rust_to_csharp_return_delegate(int x, int y);
 
         [DllImport(__DllName, EntryPoint = "rust_to_csharp", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern delegate* unmanaged[Cdecl]<int, int, int> rust_to_csharp();
@@ -100,11 +121,17 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "cbt", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void cbt(CallbackTable _cb);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int nullable_callback_test_cb_delegate(int a);
+
         [DllImport(__DllName, EntryPoint = "nullable_callback_test", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int nullable_callback_test(delegate* unmanaged[Cdecl]<int, int> cb);
 
         [DllImport(__DllName, EntryPoint = "types_iroiro", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void types_iroiro(nint _i, nuint _u, CLong _cl, CULong _cul);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int callback_test2_return_delegate(int a);
 
         [DllImport(__DllName, EntryPoint = "callback_test2", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern delegate* unmanaged[Cdecl]<int, int> callback_test2();

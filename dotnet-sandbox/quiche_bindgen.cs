@@ -19,6 +19,9 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "quiche_version", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern byte* quiche_version();
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void quiche_enable_debug_logging_cb_delegate(byte* line, void* argp);
+
         [DllImport(__DllName, EntryPoint = "quiche_enable_debug_logging", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int quiche_enable_debug_logging(delegate* unmanaged[Cdecl]<byte*, void*, void> cb, void* argp);
 
@@ -315,6 +318,9 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "quiche_conn_dgram_send", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern long quiche_conn_dgram_send(quiche_conn* conn, byte* buf, nuint buf_len);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate bool quiche_conn_dgram_purge_outgoing_f_delegate(byte* arg1, nuint arg2);
+
         [DllImport(__DllName, EntryPoint = "quiche_conn_dgram_purge_outgoing", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern void quiche_conn_dgram_purge_outgoing(quiche_conn* conn, delegate* unmanaged[Cdecl]<byte*, nuint, bool> f);
 
@@ -357,8 +363,14 @@ namespace CsBindgen
         [DllImport(__DllName, EntryPoint = "quiche_h3_event_type", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int quiche_h3_event_type(quiche_h3_event* ev);
 
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int quiche_h3_event_for_each_header_cb_delegate(byte* name, nuint name_len, byte* value, nuint value_len, void* argp);
+
         [DllImport(__DllName, EntryPoint = "quiche_h3_event_for_each_header", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int quiche_h3_event_for_each_header(quiche_h3_event* ev, delegate* unmanaged[Cdecl]<byte*, nuint, byte*, nuint, void*, int> cb, void* argp);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int quiche_h3_for_each_setting_cb_delegate(ulong identifier, ulong value, void* argp);
 
         [DllImport(__DllName, EntryPoint = "quiche_h3_for_each_setting", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int quiche_h3_for_each_setting(quiche_h3_conn* conn, delegate* unmanaged[Cdecl]<ulong, ulong, void*, int> cb, void* argp);
@@ -395,6 +407,9 @@ namespace CsBindgen
         /// <summary>Sends a PRIORITY_UPDATE frame on the control stream with specified request stream ID and priority.</summary>
         [DllImport(__DllName, EntryPoint = "quiche_h3_send_priority_update_for_request", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int quiche_h3_send_priority_update_for_request(quiche_h3_conn* conn, quiche_conn* quic_conn, ulong stream_id, quiche_h3_priority* priority);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int quiche_h3_take_last_priority_update_cb_delegate(byte* priority_field_value, ulong priority_field_value_len, void* argp);
 
         [DllImport(__DllName, EntryPoint = "quiche_h3_take_last_priority_update", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int quiche_h3_take_last_priority_update(quiche_h3_conn* conn, ulong prioritized_element_id, delegate* unmanaged[Cdecl]<byte*, ulong, void*, int> cb, void* argp);

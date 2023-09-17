@@ -29,6 +29,7 @@ pub struct BindgenOptions {
     pub csharp_if_symbol: String,
     pub csharp_if_dll_name: String,
     pub csharp_use_function_pointer: bool,
+    pub csharp_use_monomod_dyndll: bool,
     pub csharp_imported_namespaces: Vec<String>,
     pub csharp_generate_const: bool,
 }
@@ -53,6 +54,7 @@ impl Default for Builder {
                 csharp_if_symbol: "".to_string(),
                 csharp_if_dll_name: "".to_string(),
                 csharp_use_function_pointer: true,
+                csharp_use_monomod_dyndll: false,
                 csharp_imported_namespaces: vec![],
                 csharp_generate_const: false,
             },
@@ -182,6 +184,11 @@ impl Builder {
     /// conifure C# generate function pointer as delegate* or Func/Action, default is true(generate delegate*)
     pub fn csharp_use_function_pointer(mut self, csharp_use_function_pointer: bool) -> Builder {
         self.options.csharp_use_function_pointer = csharp_use_function_pointer;
+        self
+    }
+
+    pub fn csharp_use_monomod_dyndll(mut self, csharp_use_monomod_dyndll: bool) -> Self {
+        self.options.csharp_use_monomod_dyndll = csharp_use_monomod_dyndll;
         self
     }
 
