@@ -221,11 +221,16 @@ pub fn emit_csharp(
                     .push_str_ln(format!("        /// <summary>{}</summary>", x).as_str());
             }
 
+            let method_full_name = format!("{method_prefix}{method_name}");
+            if entry_point == method_full_name {
+                method_list_string.push_str_ln("        [DynDllImport(__DllName)]");
+            } else {
+                method_list_string.push_str_ln(&format!(
+                    r#"        [DynDllImport(__DllName, "{entry_point}")]"#
+                ));
+            }
             method_list_string.push_str_ln(&format!(
-                r#"        [DynDllImport(__DllName, "{entry_point}")]"#
-            ));
-            method_list_string.push_str_ln(&format!(
-                "        public static readonly {delegate_name} {method_prefix}{method_name};"
+                "        public static readonly {delegate_name} {method_full_name};"
             ));
         } else {
             if let Some(x) = item.escape_doc_comment() {
