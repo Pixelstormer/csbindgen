@@ -16,6 +16,10 @@ namespace PixivApi.ImageFile
 
 
 
+
+
+
+
         [DllImport(__DllName, EntryPoint = "fgetwc", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern ushort fgetwc(_iobuf* _Stream);
 

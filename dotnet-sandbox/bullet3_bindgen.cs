@@ -437,6 +437,10 @@ namespace CsBindgen
         internal const int eEnumUpdateVisualShapeFlags_eVISUAL_SHAPE_DOUBLE_SIDED = 4;
 
 
+
+
+
+
         [DllImport(__DllName, EntryPoint = "b3ConnectSharedMemory", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern b3PhysicsClientHandle__* b3ConnectSharedMemory(int key);
 

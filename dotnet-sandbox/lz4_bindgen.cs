@@ -155,6 +155,10 @@ namespace CsBindgen
         public const uint XXH_errorcode_XXH_ERROR = 1;
 
 
+
+
+
+
         [DllImport(__DllName, EntryPoint = "csbindgen_LZ4_versionNumber", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int LZ4_versionNumber();
 

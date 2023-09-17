@@ -30,6 +30,7 @@ pub struct BindgenOptions {
     pub csharp_if_dll_name: String,
     pub csharp_use_function_pointer: bool,
     pub csharp_use_monomod_dyndll: bool,
+    pub csharp_dyndll_custom_mapping: bool,
     pub csharp_imported_namespaces: Vec<String>,
     pub csharp_generate_const: bool,
 }
@@ -55,6 +56,7 @@ impl Default for Builder {
                 csharp_if_dll_name: "".to_string(),
                 csharp_use_function_pointer: true,
                 csharp_use_monomod_dyndll: false,
+                csharp_dyndll_custom_mapping: false,
                 csharp_imported_namespaces: vec![],
                 csharp_generate_const: false,
             },
@@ -190,6 +192,12 @@ impl Builder {
     /// Configure using Monomod's DynDllImport over regular DllImport or not
     pub fn csharp_use_monomod_dyndll(mut self, csharp_use_monomod_dyndll: bool) -> Self {
         self.options.csharp_use_monomod_dyndll = csharp_use_monomod_dyndll;
+        self
+    }
+
+    /// If enabled, emits a partial method definition that allows you to provide a custom DynDll method mapping
+    pub fn csharp_dyndll_custom_mapping(mut self, csharp_dyndll_custom_mapping: bool) -> Self {
+        self.options.csharp_dyndll_custom_mapping = csharp_dyndll_custom_mapping;
         self
     }
 

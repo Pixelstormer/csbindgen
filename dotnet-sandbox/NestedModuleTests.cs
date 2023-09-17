@@ -16,6 +16,10 @@ namespace CsBindgen
 
 
 
+
+
+
+
         [DllImport(__DllName, EntryPoint = "triple_input", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
         public static extern int triple_input(NumberStruct input);
 
